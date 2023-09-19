@@ -10,7 +10,7 @@
     </parent>
     <groupId>br.edu.ifsul.cstsi</groupId>
     <artifactId>lpoo_vendas_springboot_maven</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>lpoo_vendas_springboot_maven</name>
     <description>lpoo_vendas_springboot_maven</description>
     <properties>
