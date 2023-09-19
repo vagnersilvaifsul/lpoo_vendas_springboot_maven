@@ -11,5 +11,5 @@ Artefatos utilizados:
 #### Maven - para as dependências do projeto (e gerenciar o ciclo de vida do software).
 #### Spring Data JPA - para ORM e manipulação do banco de dados.
 #### MariaDB - como tecnologia de banco de dados relacional.
-#### JUnit para teste unitário.
+#### JUnit - para teste unitário.
 #### Spring Boot - Como container de execução em modo texto.
