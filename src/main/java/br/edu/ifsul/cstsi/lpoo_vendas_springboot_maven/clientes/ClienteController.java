@@ -8,11 +8,11 @@ import java.util.Scanner;
 public class ClienteController {
 
     private static final Scanner input = new Scanner(System.in);
-    private static ClienteService ClienteService;
+    private static ClienteService clienteService;
 
     //Injeção de dependência
     public ClienteController(ClienteService ClienteService) {
-        ClienteController.ClienteService = ClienteService;
+        ClienteController.clienteService = ClienteService;
     }
 
     public static void main(String[] args) {
@@ -59,7 +59,7 @@ public class ClienteController {
         System.out.print("\nDigite o sobrenome do cliente: ");
         cliente.setSobrenome(input.nextLine());
         cliente.setSituacao(true);
-        System.out.println("cliente salvo com sucesso:" + ClienteService.insert(cliente));
+        System.out.println("cliente salvo com sucesso:" + clienteService.insert(cliente));
     }
 
     //opção 2
@@ -74,7 +74,7 @@ public class ClienteController {
             if (codigo == 0) {
                 opcao = 0;
             } else {
-                cliente = ClienteService.getClienteById(codigo);
+                cliente = clienteService.getClienteById(codigo);
                 if (cliente == null) {
                     System.out.println("Código inválido.");
                 } else {
@@ -93,8 +93,8 @@ public class ClienteController {
                         cliente.setSobrenome(input.nextLine());
                     }
                     cliente.setSituacao(true);
-                    if(ClienteService.update(cliente) != null) {
-                        System.out.println("cliente atualizado com sucesso. " + ClienteService.getClienteById(cliente.getId()));
+                    if(clienteService.update(cliente) != null) {
+                        System.out.println("cliente atualizado com sucesso. " + clienteService.getClienteById(cliente.getId()));
                     } else {
                         System.out.println("Não foi possível atualizar este cliente. Por favor, contate o administrador.");
                     }
@@ -116,7 +116,7 @@ public class ClienteController {
             if (codigo == 0) {
                 opcao = 0;
             } else if(codigo > 0){
-                cliente = ClienteService.getClienteById(codigo);
+                cliente = clienteService.getClienteById(codigo);
                 if (cliente == null) {
                     System.out.println("Código inválido.");
                 } else {
@@ -127,7 +127,7 @@ public class ClienteController {
                         System.out.print("Tem certeza disso? (0-sim/1-não) ");
                         cliente.setSituacao(false);
                         input.nextLine();
-                        ClienteService.delete(cliente.getId());
+                        clienteService.delete(cliente.getId());
                         System.out.println("cliente excluído com sucesso:" + cliente);
                     }
 
@@ -149,7 +149,7 @@ public class ClienteController {
             if (codigo == 0) {
                 opcao = 0;
             } else if(codigo > 0){
-                cliente = ClienteService.getClienteById(codigo);
+                cliente = clienteService.getClienteById(codigo);
                 if (cliente == null) {
                     System.out.println("Código inválido.");
                 } else {
@@ -160,8 +160,8 @@ public class ClienteController {
                         System.out.print("Tem certeza disso? (0-sim/1-não) ");
                         cliente.setSituacao(!cliente.getSituacao());
                         input.nextLine();
-                        if(ClienteService.update(cliente) != null) {
-                            System.out.println("Situação do cliente alterada com sucesso: " + ClienteService.getClienteById(codigo));
+                        if(clienteService.update(cliente) != null) {
+                            System.out.println("Situação do cliente alterada com sucesso: " + clienteService.getClienteById(codigo));
                         } else {
                             System.out.println("Não foi possível ativar/desativar este cliente. Por favor, contate o administrador.");
                         }
@@ -176,13 +176,13 @@ public class ClienteController {
 
     //opção 3
     private static void selectclientes() {
-        System.out.println("\nLista de clientes cadastrados no banco de dados:\n" + ClienteService.getClientes());
+        System.out.println("\nLista de clientes cadastrados no banco de dados:\n" + clienteService.getClientes());
     }
 
     //opção 4
     private static void selectclientesById() {
         System.out.print("\nDigite o código do cliente: ");
-        Cliente cliente = ClienteService.getClienteById(input.nextLong());
+        Cliente cliente = clienteService.getClienteById(input.nextLong());
         input.nextLine();
         if (cliente != null) {
             System.out.println(cliente);
@@ -196,7 +196,7 @@ public class ClienteController {
         System.out.print("Digite o nome do cliente: ");
         String nome = input.next();
         System.out.println("Chave de pesquisa: " + nome);
-        List<Cliente> clientes = ClienteService.getClientesByNome(nome + "%");
+        List<Cliente> clientes = clienteService.getClientesByNome(nome + "%");
         if (clientes.isEmpty()) {
             System.out.println("Não há registros correspondentes para: " + nome);
         } else {
@@ -212,11 +212,11 @@ public class ClienteController {
         List<Cliente> clientes;
         switch (situacao) {
             case 0 -> {
-                clientes = ClienteService.getClientesBySituacao(false);
+                clientes = clienteService.getClientesBySituacao(false);
                 System.out.println("clientes na situação INATIVO:\n " + clientes);
             }
             case 1 -> {
-                clientes = ClienteService.getClientesBySituacao(true);
+                clientes = clienteService.getClientesBySituacao(true);
                 System.out.println("clientes na situação ATIVO:\n " + clientes);
             }
         }
